@@ -1,11 +1,9 @@
-import re
-from django.shortcuts import render, redirect
-# from django.http import HttpResponse
+
+from django.shortcuts import render
 from .models import User, NewsArticle
 from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
 import requests
-from .get_csrf_token import extract_csrf_token
 from django.http import JsonResponse
 
 @csrf_exempt
