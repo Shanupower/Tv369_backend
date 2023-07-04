@@ -83,13 +83,17 @@ DATABASES = {
     'default': {
         'ENGINE': 'djongo',
         'NAME': 'Backend',
-        'ENFORCE_SCHEMA': True,
+        'ENFORCE_SCHEMA': False,
         'CLIENT': {
-            'host': 'mongodb://127.0.0.1:27017/',
+            'host': 'tv369.in',
+            'port': 27017,
+            'username': 'tv369',
+            'password': 'tdzdvowojpafvfr',
+            'authSource': 'admin',
+            'authMechanism': 'SCRAM-SHA-1'
         }
     }
 }
-
 
 
 # Password validation
