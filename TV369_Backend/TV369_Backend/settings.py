@@ -34,7 +34,13 @@ SWAGGER_SETTINGS = {
     'DEFAULT_INFO': 'myapp.urls.openapi_info',
 }
 
-CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ORIGIN_WHITELIST = [
+    # 'http://example.com',  # Add your allowed origins here
+    'http://localhost:',
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
