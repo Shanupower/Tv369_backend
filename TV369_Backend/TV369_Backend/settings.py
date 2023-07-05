@@ -32,6 +32,8 @@ ALLOWED_HOSTS = ['*']
 SWAGGER_SETTINGS = {
     'DEFAULT_INFO': 'myapp.urls.openapi_info',
 }
+
+CORS_ORIGIN_ALLOW_ALL=True
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -41,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Backend', 
     'rest_framework',
+    'corsheaders',
     'drf_yasg',
     'rest_framework_swagger',
 ]
@@ -53,6 +56,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'TV369_Backend.urls'
@@ -94,7 +99,16 @@ DATABASES = {
         }
     }
 }
-
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'djongo',
+#         'NAME': 'Backend',
+#         'ENFORCE_SCHEMA': True,
+#         'CLIENT': {
+#             'host': 'mongodb://127.0.0.1:27017/',
+#         }
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

@@ -30,7 +30,9 @@ def login(request):
 @csrf_exempt
 def show_users(request):
     users = User.objects.all()
-    return render(request, 'show_users.html', {'users': users})
+    user = serializers.serialize('json', users)
+    return JsonResponse({"result":user})
+    # return render(request, 'show_users.html', {'users': users})
 
 @csrf_exempt
 def create_news_article(request):
@@ -70,7 +72,9 @@ def show_all_news_articles(request):
     return render(request, 'show_news_articles.html', {'news_articles': news_articles})
 
 @csrf_exempt
-def show_news_articles_by_category(request, category):
+def show_news_articles_by_category(request):
+    category = request.GET.get('category',None)
+    
     news_articles = NewsArticle.objects.filter(categories=category).order_by('-created_at')[:10]
 
     # Serialize the model instance to JSON
@@ -82,7 +86,7 @@ def show_news_articles_by_category(request, category):
 
 @csrf_exempt
 def trending(request):
-    news_articles = NewsArticle.objects.all.order_by('-created_at')[:10]
+    news_articles = NewsArticle.objects.order_by('-created_at')[:10]
     articles = serializers.serialize('json', news_articles)
     return JsonResponse({"result":articles})
     return render(request, 'show_news_articles.html', {'news_articles': news_articles})
