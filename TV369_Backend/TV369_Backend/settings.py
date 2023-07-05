@@ -34,6 +34,10 @@ SWAGGER_SETTINGS = {
 }
 
 CORS_ORIGIN_ALLOW_ALL=True
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:5173',
+    'http://localhost:3000'
+]
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
