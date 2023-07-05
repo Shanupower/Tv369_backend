@@ -15,7 +15,7 @@ class NewsArticle(models.Model):
     id = models.AutoField(primary_key=True)
     author = models.CharField(max_length=200)
     title = models.CharField(max_length=200)
-    cover_image = models.ImageField(upload_to='cover_images/')
+    cover_image = models.ImageField(upload_to='media/')
     content = models.TextField()
     categories = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
