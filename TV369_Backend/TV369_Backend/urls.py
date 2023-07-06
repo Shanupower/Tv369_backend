@@ -11,4 +11,5 @@ urlpatterns = [
     path('show_all_articles/', views.show_all_news_articles, name='show_all_articles'),
     path('show_category_articles/', views.show_news_articles_by_category, name='show_category_articles'),
     path('trending/', views.trending, name='trending'),
+    path('article/', views.single_article, name='article'),
 ]

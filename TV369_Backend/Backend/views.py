@@ -91,3 +91,9 @@ def trending(request):
     return JsonResponse({"result":articles})
     return render(request, 'show_news_articles.html', {'news_articles': news_articles})
 
+@csrf_exempt
+def single_article(request):
+    id = request.GET.get('id',None)
+    article = NewsArticle.objects.get(id=id)
+    single_article1 = serializers.serialize('json', [article])
+    return JsonResponse({"result":single_article1})
