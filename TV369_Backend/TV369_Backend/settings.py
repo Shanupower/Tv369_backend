@@ -93,32 +93,32 @@ WSGI_APPLICATION = 'TV369_Backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'djongo',
-        'NAME': 'Backend_1',
-        'ENFORCE_SCHEMA': False,
-        'CLIENT': {
-            'host': 'tv369.in',
-            'port': 27017,
-            'username': 'tv369',
-            'password': 'tdzdvowojpafvfr',
-            'authSource': 'admin',
-            'authMechanism': 'SCRAM-SHA-1'
-        }
-    }
-}
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'djongo',
-#         'NAME': 'New_Backend_1',
-#         'ENFORCE_SCHEMA': True,
+#         'NAME': 'Backend_1',
+#         'ENFORCE_SCHEMA': False,
 #         'CLIENT': {
-#             'host': 'mongodb://127.0.0.1:27017/',
+#             'host': 'tv369.in',
+#             'port': 27017,
+#             'username': 'tv369',
+#             'password': 'tdzdvowojpafvfr',
+#             'authSource': 'admin',
+#             'authMechanism': 'SCRAM-SHA-1'
 #         }
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'djongo',
+        'NAME': 'New_Backend_1',
+        'ENFORCE_SCHEMA': True,
+        'CLIENT': {
+            'host': 'mongodb://127.0.0.1:27017/',
+        }
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
