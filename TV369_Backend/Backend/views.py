@@ -1,10 +1,33 @@
 
+from nis import cat
+from sre_parse import CATEGORIES
 from django.shortcuts import render
-from .models import User, NewsArticle
+from .models import User, NewsArticle ,Category,Author
 from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
 import requests
 from django.http import JsonResponse
+
+@csrf_exempt
+def create_category(request):
+    category=request.POST['category']
+    Category.objects.create(category=category)
+    return JsonResponse({"result":"Category successfully created"})
+@csrf_exempt
+def show_category(request):
+    category = Category.objects.all()
+    categories = serializers.serialize('json', category)
+    return JsonResponse({"result":categories})
+@csrf_exempt
+def create_author(request):
+    author=request.POST['author']
+    Author.objects.create(author=author)
+    return JsonResponse({"result":"Author successfully created"})
+@csrf_exempt
+def show_author(request):
+    author = Author.objects.all()
+    authors = serializers.serialize('json', author)
+    return JsonResponse({"result":authors})
 
 @csrf_exempt
 def create_user(request):

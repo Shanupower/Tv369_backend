@@ -1,3 +1,4 @@
+from unicodedata import category
 from django.db import models
 
 class User(models.Model):
@@ -25,3 +26,25 @@ class NewsArticle(models.Model):
 
     class Meta:
         db_table = 'news_article'  # Set the collection name explicitly
+
+class Category(models.Model):
+    id = models.AutoField(primary_key=True)
+    category=models.CharField(max_length=150)
+
+    def __str__(self):
+        return self.category
+    
+    class Meta:
+        db_table= 'Categories'
+
+class Author(models.Model):
+    id = models.AutoField(primary_key=True)
+    author=models.CharField(max_length=150)
+
+    def __str__(self):
+        return self.author
+    
+    class Meta:
+        db_table= 'Author'
+
+       
