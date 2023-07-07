@@ -96,7 +96,7 @@ WSGI_APPLICATION = 'TV369_Backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'NAME': 'Backend',
+        'NAME': 'Backend_1',
         'ENFORCE_SCHEMA': False,
         'CLIENT': {
             'host': 'tv369.in',
