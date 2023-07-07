@@ -1,6 +1,8 @@
 
+from fileinput import close
 from nis import cat
 from nturl2path import url2pathname
+import re
 from sre_parse import CATEGORIES
 from django.shortcuts import render
 from .models import User, NewsArticle ,Category,Author
@@ -8,6 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
 import requests
 from django.http import JsonResponse
+import json
 
 @csrf_exempt
 def create_category(request):
@@ -68,7 +71,6 @@ def create_news_article(request):
         categories = request.POST['categories']
         NewsArticle.objects.create(author=author, title=title, cover_image=cover_image, content=content, categories=categories)
         return JsonResponse({"result":'News article created successfully!'})
-    return render(request, 'create_news_article.html')
 @csrf_exempt
 def show_10_news_articles(request):
     news_articles = NewsArticle.objects.order_by('-created_at')[:10]
@@ -120,3 +122,16 @@ def single_article(request):
     article = NewsArticle.objects.get(id=id)
     single_article1 = serializers.serialize('json', [article])
     return JsonResponse({"result":single_article1})
+@csrf_exempt
+def import_data(request):
+    with open("/Users/shanug/Downloads/news-data.json") as file:
+        data = json.load(file)
+        for item in data:
+            author = item['author']
+            title = item['title']
+            cover_image = item['cover_image']
+            content = item['content']
+            categories = item['categories']
+            NewsArticle.objects.create(author=author, title=title, cover_image=cover_image, content=content, categories=categories)
+    file.close()
+    return JsonResponse({'result':'finished'})

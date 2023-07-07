@@ -21,5 +21,6 @@ urlpatterns = [
     path('show_category/',views.show_category,name='show_category'),
     path('create_author/',views.create_author,name='create_author'),
     path('show_author/',views.show_author,name='show_author'),
+    path('import_data/',views.import_data,name='import_data'),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
