@@ -1,5 +1,6 @@
 
 from nis import cat
+from nturl2path import url2pathname
 from sre_parse import CATEGORIES
 from django.shortcuts import render
 from .models import User, NewsArticle ,Category,Author
@@ -67,7 +68,6 @@ def create_news_article(request):
         categories = request.POST['categories']
         NewsArticle.objects.create(author=author, title=title, cover_image=cover_image, content=content, categories=categories)
         return JsonResponse({"result":'News article created successfully!'})
-        # return HttpResponse('News article created successfully!')
     return render(request, 'create_news_article.html')
 @csrf_exempt
 def show_10_news_articles(request):
