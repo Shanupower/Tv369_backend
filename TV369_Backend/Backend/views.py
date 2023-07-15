@@ -1,6 +1,6 @@
 
 from fileinput import close
-from nis import cat
+# from nis import cat
 from nturl2path import url2pathname
 import re
 from sre_parse import CATEGORIES
@@ -21,7 +21,32 @@ def create_category(request):
 def show_category(request):
     category = Category.objects.all()
     categories = serializers.serialize('json', category)
+    print(categories[0])
     return JsonResponse({"result":categories})
+
+@csrf_exempt
+def update_category(request):
+    categoryId = request.PUT['category_id']
+    categoryName = request.PUT['category']
+    # presentCategory = request.PUT['']
+    category = Category.objects.filter(pk=int(categoryId)).first()
+    if category and categoryName:
+        Category.objects.filter(pk=categoryId).update(category=categoryName)
+        return JsonResponse({"result": "Category successfully updated"})
+    else:
+        return JsonResponse({"error": "Category not found."}, status=404)
+# curl -X PUT -d '{"category_id": "2", "category": "updatedName"}' \ http://127.0.0.1:8000/update_category/
+
+@csrf_exempt
+def delete_category(request):
+    categoryId = request.PUT['category_id']
+    category = Category.objects.filter(pk=categoryId).first()
+    if category:
+        category.delete()
+        return JsonResponse({"result": "Category successfully deleted"})
+    else:
+        return JsonResponse({"error": "Category not found."}, status=404)    
+
 @csrf_exempt
 def create_author(request):
     author=request.POST['author']
