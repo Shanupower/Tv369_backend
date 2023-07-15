@@ -24,9 +24,11 @@ urlpatterns = [
     path('import_data/',views.import_data,name='import_data'),
 
     path('update_category/',views.update_category,name='update_category'),
-    # path('update_author/',views.update_author,name='update_author'),
+    path('update_author/',views.update_author,name='update_author'),
     path('delete_category/',views.delete_category,name='delete_category'),
-    # path('delete_author/',views.delete_author,name='delete_author'),
+    path('delete_author/',views.delete_author,name='delete_author'),
+    path('update_article/',views.update_article,name='update_article'),
+    path('delete_article/',views.delete_article,name='delete_article'),
     
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

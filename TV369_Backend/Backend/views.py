@@ -26,26 +26,24 @@ def show_category(request):
 
 @csrf_exempt
 def update_category(request):
-    categoryId = request.PUT['category_id']
-    categoryName = request.PUT['category']
-    # presentCategory = request.PUT['']
-    category = Category.objects.filter(pk=int(categoryId)).first()
+    categoryId = request.POST['category_id']
+    categoryName = request.POST['category']
+    category = Category.objects.filter(pk=categoryId).first()
     if category and categoryName:
         Category.objects.filter(pk=categoryId).update(category=categoryName)
         return JsonResponse({"result": "Category successfully updated"})
     else:
-        return JsonResponse({"error": "Category not found."}, status=404)
-# curl -X PUT -d '{"category_id": "2", "category": "updatedName"}' \ http://127.0.0.1:8000/update_category/
-
+        return JsonResponse({"result": "Category not found."}, status=404)
+    
 @csrf_exempt
 def delete_category(request):
-    categoryId = request.PUT['category_id']
+    categoryId = request.POST['category_id']
     category = Category.objects.filter(pk=categoryId).first()
     if category:
         category.delete()
         return JsonResponse({"result": "Category successfully deleted"})
     else:
-        return JsonResponse({"error": "Category not found."}, status=404)    
+        return JsonResponse({"result": "Category not found."}, status=404)    
 
 @csrf_exempt
 def create_author(request):
@@ -57,6 +55,28 @@ def show_author(request):
     author = Author.objects.all()
     authors = serializers.serialize('json', author)
     return JsonResponse({"result":authors})
+
+@csrf_exempt
+def update_author(request):
+    authorId = request.POST['author_id']
+    authorName = request.POST['author']
+    author = Author.objects.filter(pk=authorId).first()
+    if author and authorName:
+        Author.objects.filter(pk=authorId).update(author=authorName)
+        return JsonResponse({"result": "Author successfully updated"})
+    else:
+        return JsonResponse({"result": "Author not found."}, status=404)
+    
+@csrf_exempt
+def delete_author(request):
+    authorId = request.POST['author_id']
+    author = Author.objects.filter(pk=authorId).first()
+    if author:
+        author.delete()
+        return JsonResponse({"result": "Author successfully deleted"})
+    else:
+        return JsonResponse({"result": "Author not found."}, status=404)
+
 
 @csrf_exempt
 def create_user(request):
@@ -96,6 +116,37 @@ def create_news_article(request):
         categories = request.POST['categories']
         NewsArticle.objects.create(author=author, title=title, cover_image=cover_image, content=content, categories=categories)
         return JsonResponse({"result":'News article created successfully!'})
+
+@csrf_exempt
+def update_article(request):
+    articleId = request.POST['article_id']
+    article = NewsArticle.objects.filter(pk=articleId).first()
+    if article:
+        authorName = request.POST.get('author')
+        title = request.POST.get('title')
+        content = request.POST.get('content')
+        categories = request.POST.get('categories')
+        if len(request.FILES) == 1:
+            print("photo")
+            cover_image = request.FILES['cover_image']
+            NewsArticle.objects.filter(pk=articleId).update(author=authorName, title=title, cover_image=cover_image, content=content, categories=categories)
+        else:
+            print("no photo")
+            NewsArticle.objects.filter(pk=articleId).update(author=authorName, title=title,content=content, categories=categories)
+        return JsonResponse({"result": "Article successfully updated"})
+    else:
+        return JsonResponse({"result": "Article not found."}, status=404)
+    
+@csrf_exempt
+def delete_article(request):
+    articleId = request.POST['article_id']
+    article = NewsArticle.objects.filter(pk=articleId).first()
+    if article:
+        article.delete()
+        return JsonResponse({"result": "Article successfully deleted"})
+    else:
+        return JsonResponse({"result": "Article not found."}, status=404)    
+
 @csrf_exempt
 def show_10_news_articles(request):
     news_articles = NewsArticle.objects.order_by('-created_at')[:10]
